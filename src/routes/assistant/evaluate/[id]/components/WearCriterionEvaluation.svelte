@@ -7,6 +7,7 @@
 
 	} from '$lib/components/ComponentSelectDialog/EvaluatedTreeView.svelte';
 	import Ripple from '@smui/ripple';
+	
 	let {
 		wearCriterion = $bindable(),
 		onSelectionChanged,
@@ -27,6 +28,8 @@
 
 
 	function toggleSelected(threshold: EvaluatedWearThresholdTreeViewModel): void {
+		
+		
 		if (selectedThreshold?.id === threshold.id) {
 			selectedThreshold = null;
 		} else {
@@ -34,16 +37,20 @@
 		}
 
 		wearCriterion.selectedThreshold = selectedThreshold;
-
+		
+	
 		onSelectionChanged(wearCriterion);
     }
 </script>
 
 <div class="wear-criterion">
 	<div class="wear-criterion-label">{wearCriterion.label}</div>
+	<div>Prüfverfahren: {wearCriterion.notesOnTestMethod}</div>
+	
 
 	<div class="wear-thresholds">
 		{#each evaluatedThresholds as threshold, i}
+			{#if threshold.label.trim() != "" }
 			<div
 				id="wear-threshold-{threshold.id}"
 				class={'wear-threshold mdc-elevation--z2' + (selectedThreshold?.id === threshold.id ? ' selected' : '')}
@@ -58,6 +65,7 @@
 				
 				<div class="threshold-label">{threshold.label}</div>
 			</div>
+			{/if}
 		{/each}
 	</div>
 </div>
@@ -66,6 +74,7 @@
 	.wear-criterion-label {
 		font-size: 1.5rem;
 	}
+
 
 	.wear-thresholds {
 		margin-top: 12px;

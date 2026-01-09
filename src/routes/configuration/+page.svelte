@@ -73,6 +73,7 @@
 				const importedProduct = ProductImporter.getProductTreeViewFromXlsx(data);
 
 				const elements = getElementsFromProductTreeView(importedProduct);
+				
 
 				// API-Aufruf zur Speicherung des Produkts
 				fetch('/api/product/' + importedProduct.id + '?asTreeView=true', {

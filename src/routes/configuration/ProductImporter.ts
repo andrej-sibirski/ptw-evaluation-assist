@@ -56,6 +56,7 @@ export class ProductImporter {
 
 		const strategies = this.getStrategies(categoryData, productTreeViewModel);
 
+		
 		productTreeViewModel.fixStrategies = strategies;
 
 		return productTreeViewModel;

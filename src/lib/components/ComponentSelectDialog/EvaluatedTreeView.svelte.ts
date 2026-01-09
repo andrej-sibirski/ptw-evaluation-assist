@@ -145,6 +145,19 @@ export class EvaluatedAssemblyComponentTreeViewModel extends AssemblyComponentTr
 			return wearCriterion.selectedThreshold?.fixStrategy === this.evaluatedFixStrategy;
 		});
 
+		
+		const mySet = new Set(
+			matchedSelectedThreshold
+			.map((wearCriterion) => {
+				return wearCriterion.selectedThreshold?.measures;
+			})
+            .filter((m) => m != undefined)
+			.filter((m) => m.trim().length > 0)
+		); 
+
+		return [...mySet].join(', '); 
+
+		/*
 		return matchedSelectedThreshold
 			.map((wearCriterion) => {
 				return wearCriterion.selectedThreshold?.measures;
@@ -152,6 +165,8 @@ export class EvaluatedAssemblyComponentTreeViewModel extends AssemblyComponentTr
             .filter((m) => m != undefined)
 			.filter((m) => m.trim().length > 0)
 			.join(', ');
+		*/
+
 	}
 }
 

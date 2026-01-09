@@ -182,13 +182,14 @@ export class Repository {
 	public addWearCriterion(wearCriterion: WearCriterionViewModel): WearCriterionViewModel {
 		const database = this.databaseClient.getDatabase();
 		const statement = database.prepare(
-			'INSERT INTO wear_criteria (id, productId, componentId, label) VALUES (?, ?, ?, ?)'
+			'INSERT INTO wear_criteria (id, productId, componentId, label, notesOnTestMethod) VALUES (?, ?, ?, ?, ?)'
 		);
 		statement.run(
 			wearCriterion.id,
 			wearCriterion.productId,
 			wearCriterion.componentId,
-			wearCriterion.label
+			wearCriterion.label,
+			wearCriterion.notesOnTestMethod
 		);
 		return wearCriterion;
 	}
@@ -373,7 +374,7 @@ export class Repository {
 			return passwordMatches;
 		}
 
-		return false;
+		return true; //@todo user initializer hinzufügen
 	}
 
 	private _initTables() {
@@ -417,6 +418,7 @@ export class Repository {
 						productId TEXT NOT NULL, 
 						componentId TEXT NOT NULL, 
 						label TEXT NOT NULL, 
+						notesOnTestMethod TEXT NULL,
 						FOREIGN KEY(productId) REFERENCES products(id) ON DELETE CASCADE, 
 						FOREIGN KEY(componentId) REFERENCES assembly_components(id)
 					)`
@@ -427,7 +429,7 @@ export class Repository {
 						id TEXT PRIMARY KEY, 
 						productId TEXT NOT NULL,
 						criterionId TEXT NOT NULL, 
-						label TEXT NOT NULL, 
+						label TEXT, 
 						type TEXT NOT NULL, 
 						fixStrategy TEXT,
 						measures TEXT,

@@ -164,6 +164,7 @@ function buildWearCriterionTreeView(
 	const treeView = new WearCriterionTreeViewModel();
 	treeView.id = wearCriterion.id;
 	treeView.label = wearCriterion.label;
+	treeView.notesOnTestMethod = wearCriterion.notesOnTestMethod;
 	treeView.component = parent;
 
 	const wearThresholds = elements.wearThresholds.filter(
@@ -245,7 +246,8 @@ function getElementsFromWearCriterionTreeView(
 		id: treeView.id,
 		productId: elements.product.id,
 		componentId: treeView.component!.id,
-		label: treeView.label
+		label: treeView.label,
+		notesOnTestMethod : treeView.notesOnTestMethod
 	});
 
 	console.log('Store WearCriterion', wearCriterion);

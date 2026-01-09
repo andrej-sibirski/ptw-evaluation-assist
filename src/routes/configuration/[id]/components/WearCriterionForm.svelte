@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Textfield from '@smui/textfield';
+	import Textfield  from '@smui/textfield'
 	import Select, { Option } from '@smui/select';
 	import Autocomplete from '@smui-extra/autocomplete';
 	import IconButton from '@smui/icon-button';
@@ -28,19 +28,23 @@
 	console.log('wearCriterion', wearCriterion, machineElement);
 
 
-
 	let availableCriteria = $derived.by(() => machineElement?.criteria?.map((c) => c.name) ?? []);
+
+
 
 </script>
 
 <div class="wear-criterion-form">
 	<div class="criterion">
 		<Autocomplete combobox bind:value={wearCriterion.label} label="Kriterium" options={availableCriteria} />
+		
 		<IconButton onclick={ondelete}>
 			<i class="material-icons">delete</i>
 		</IconButton>
 	</div>
-
+	<Textfield bind:value={wearCriterion.notesOnTestMethod} label="Hinweise zum Prüfverfahren"></Textfield>
+	<br>
+	
 	<div class="thresholds">
 		{#each wearCriterion.wearThresholds as threshold, i}
 			<WearThresholdForm bind:wearThreshold={wearCriterion.wearThresholds[i]} strategies={strategies} />

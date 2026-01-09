@@ -101,11 +101,14 @@
 	}
 
 	function getEvaluationResultText(): string {
+		
+		
 		if (!selectedComponent || !selectedComponent.evaluatedFixStrategy) {
 			return '';
 		}
 
 		const measures = selectedComponent.getEvaluatedMeasures();
+
 
 		return selectedComponent.evaluatedFixStrategy + (measures.length > 0 ? `: ${measures}` : '');
 	}

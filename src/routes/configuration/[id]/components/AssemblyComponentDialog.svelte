@@ -15,6 +15,8 @@
 	import { ThresholdStrategyTreeViewModel } from '$lib/models/threshold-strategy.model';
 	import type { CategoriesTreeView } from '$lib/util/CategoriesTreeViewUtil.svelte';
 
+	import * as util from 'util' // has no default export
+	
 	let {
 		open = $bindable(),
 		strategies,
@@ -65,6 +67,7 @@
 	});
 
 	function addWearCriterion() {
+		
 		const wearCriterion = new WearCriterionTreeViewModel();
 		wearCriterion.component = assemblyComponent;
 		wearCriterion.wearThresholds = [
@@ -81,7 +84,6 @@
 				criterion: wearCriterion
 			})
 		]
-		
 		wearCriteria.push(wearCriterion);
 	}
 
@@ -101,6 +103,7 @@
 			machineElement,
 			wearCriteria
 		});
+		
 		onSave(component);
 		open = false;
 	}
@@ -121,18 +124,25 @@
 			style="width: 100%;"
 			bind:value={name}
 			onkeydown={(e: { key: string; }) => e.key === 'Enter' && saveNewComponent()}
-			label="Name"></Textfield>
+			label="Name">
+		</Textfield>
 
 
 		<Autocomplete style="margin-top: 12px" combobox bind:value={machineElementCategory} options={predefinedCategories} label="Kategorie Maschinenelement"></Autocomplete>
 
 		<Autocomplete style="margin-top: 12px" combobox bind:value={machineElement} options={predefinedElements} label="Maschinenelement"></Autocomplete>
 
+		<br>
+		<br>
+		<br>
 		<div class="wear-criterion-title">Verschleißkriterien</div>
 
 		<div class="wear-criteria">
 			{#each wearCriteria as verschleißkrit, index}
 				<WearCriterionForm bind:wearCriterion={wearCriteria[index]} machineElement={selectedElement} strategies={strategies} ondelete={() => removeWearCriterion(index)} />
+				<br>
+				<hr class="dashed">
+					
 			{/each}
 		</div>
 
@@ -183,6 +193,10 @@
 		gap: 8px;
 		margin: 8px 8px 8px 0;
 	}
+
+	.dashed {
+  		border-top: 10px dashed #000000;
+    }
 
 	:global(#wear-criterion-add-button) {
 		margin-top: 24px;

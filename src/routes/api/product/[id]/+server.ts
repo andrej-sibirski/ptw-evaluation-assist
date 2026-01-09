@@ -1,6 +1,7 @@
 import { ProductViewModel } from '$lib/models/product.model';
 import { Repository } from '$lib/server/repository';
 import type { ProductTreeViewElements } from '$lib/util/ProductTreeViewUtil';
+import { Console } from 'console';
 
 export async function DELETE({ params }: { params: { id: string } }) {
 	console.log('DeleteProduct', params);
@@ -29,6 +30,10 @@ export async function GET({ params, url }: { params: { id: string }; url: URL })
 }
 
 export async function PUT({ params, request, url }: { params: { id: string }; request: Request, url: URL }) {
+    
+    console.log("Put")
+    console.log(params)
+
     const repository = Repository.Instance;
 
     
@@ -44,6 +49,8 @@ export async function PUT({ params, request, url }: { params: { id: string }; re
         }
         
         const productElements = (await request.json()) as ProductTreeViewElements;
+
+
 
         // If we are updating an existing product, we do not want to update the creation date
         if (!existingProduct) {
@@ -69,7 +76,8 @@ export async function PUT({ params, request, url }: { params: { id: string }; re
             resultElements.components.push(repository.addAssemblyComponent(component));
         }
 
-        for (const criterion of productElements.wearCriteria) {
+        for (const criterion of productElements.wearCriteria) {      
+            let a = criterion.notesOnTestMethod
             resultElements.wearCriteria.push(repository.addWearCriterion(criterion));
         }
 

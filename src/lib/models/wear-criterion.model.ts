@@ -14,7 +14,7 @@ export class WearCriterionViewModel {
     componentId: string | undefined;
     productId: string | undefined;
     label: string = '';
-
+    notesOnTestMethod : string = '';
     constructor(options: Partial<WearCriterionViewModel> = {}) {
         Object.assign(this, options);
     }
@@ -25,6 +25,7 @@ export class WearCriterionTreeViewModel {
     id: string = uuidv4();
     type: string = 'wear-criterion';
     label: string = '';
+    notesOnTestMethod: string = ''; 
     component: AssemblyComponentTreeViewModel | undefined;
     wearThresholds: WearThresholdTreeViewModel[] = [];
 
